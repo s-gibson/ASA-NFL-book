@@ -51,7 +51,7 @@ ggplot(data = Team.Fantasy.totals.2016, aes(x = Actual.Points, y = Offensive.Fan
   scale_x_continuous(limits = c(-2, max(Team.Fantasy.totals.2016$Actual.Points) + 3)) +
   scale_y_continuous(limits = c(min(Team.Fantasy.totals.2016$Offensive.Fantasy.Points - 5),
                                     max(Team.Fantasy.totals.2016$Offensive.Fantasy.Points + 5)))
-ggsave("Visualizations/Ch. 2/Actual.vs.Fantasy.Points_ALL.png")
+ggsave("Visualizations/Ch_2/Actual.vs.Fantasy.Points_ALL.png")
 
 ## Create the same visualization as above, but for one for each of all 32 teams
 uniq.teams <- sort(unique(Team.Fantasy.totals.2016$Team))
@@ -75,7 +75,7 @@ for (i in c(1:32)) {
     scale_y_continuous(limits = c(min(Team.Fantasy.totals.2016$Offensive.Fantasy.Points - 5),
                                   max(Team.Fantasy.totals.2016$Offensive.Fantasy.Points + 5)))
   
-  ggsave(paste("Visualizations/Ch. 2/Team viz/Actual.vs.Fantasy.Points_",
+  ggsave(paste("Visualizations/Ch_2/Team viz/Actual.vs.Fantasy.Points_",
                toupper(uniq.teams[i]), ".png", sep =''))
 }
 
