@@ -165,3 +165,7 @@ for (i in c(1:nrow(Fantasy.2016))) {
         OU.2016$Week == Fantasy.2016$Week[i])]
   }
 }
+rm(i)
+
+## Save data environment for future use
+save.image("~/Documents/ASA/ASA NFL book/data/clean_data.RData")
