@@ -79,3 +79,10 @@ for (i in c(1:32)) {
                toupper(uniq.teams[i]), ".png", sep =''))
 }
 
+## Create a dataframe of each teams' weekly actual point and offensive fantasy point totals
+## BY POSITONAL UNIT (QB, RB, WR, TE)
+Team.Fantasy.totals.Pos.2016 <- unique(Fantasy.2016[c("Week", "Team", "Pos")])
+Team.Fantasy.totals.Pos.2016$Actual.Points <- NA
+Team.Fantasy.totals.Pos.2016$Offensive.Fantasy.Points <- NA
+
+
