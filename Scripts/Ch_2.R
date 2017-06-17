@@ -80,7 +80,7 @@ for (i in c(1:32)) {
 }
 
 ## Create a dataframe of each teams' weekly actual point and offensive fantasy point totals
-## BY POSITONAL UNIT (QB, RB, WR, TE)
+## BY POSITONAL UNIT (QB, RB, WR/TE)
 Team.Fantasy.totals.Pos.2016 <- unique(Fantasy.2016[c("Week", "Team", "Pos")])
 Team.Fantasy.totals.Pos.2016$Actual.Points <- NA
 Team.Fantasy.totals.Pos.2016$Offensive.Fantasy.Points <- NA
@@ -90,6 +90,10 @@ Team.Fantasy.totals.Pos.2016 <- Team.Fantasy.totals.Pos.2016[
     Team.Fantasy.totals.Pos.2016$Pos == "RB" |
     Team.Fantasy.totals.Pos.2016$Pos == "WR")
 ,]
+
+Team.Fantasy.totals.Pos.2016$Pos <- as.character(Team.Fantasy.totals.Pos.2016$Pos)
+Team.Fantasy.totals.Pos.2016$Pos[which(
+  Team.Fantasy.totals.Pos.2016$Pos %in% c('WR','TE'))] <- "WR/TE"
 
 for (i in c(1:nrow(Team.Fantasy.totals.Pos.2016))) {
   if (Team.Fantasy.totals.Pos.2016$Pos[i] == "QB") {
@@ -113,10 +117,6 @@ for (i in c(1:nrow(Team.Fantasy.totals.Pos.2016))) {
     Fantasy.2016$Team == Team.Fantasy.totals.Pos.2016$Team[i] &
       Fantasy.2016$Week == Team.Fantasy.totals.Pos.2016$Week[i])][1]
 }
-
-Team.Fantasy.totals.Pos.2016$Pos.Unit <- as.character(Team.Fantasy.totals.Pos.2016$Pos)
-Team.Fantasy.totals.Pos.2016$Pos.Unit[which(
-  as.character(Team.Fantasy.totals.Pos.2016$Pos) %in% c("WR", "TE"))] <-"WR/TE"
 
 ## Visualization: Scatter plot (with regression) of Offensive Fantasy Points by positional unit
 ## vs. Actual Points for all teams.  Also include regression equation in plot.
@@ -152,7 +152,7 @@ for (i in c(1:32)) {
   ggplot(data = dat, aes(x = Actual.Points, y = Offensive.Fantasy.Points)) +
     geom_point(aes(group = Pos, color = Pos), size = 0.5) + 
     geom_smooth(aes(group = Pos, color = Pos), method = 'lm', formula = y ~ x) +
-    ggtitle(paste("[TBD]", toupper(uniq.teams[i]), sep = " ")) +
+    ggtitle("[TBD] All Teams") +
     theme(plot.title = element_text(hjust = 0.5)) +
     xlab("Actual Points") +
     ylab("Total Offensive Fantasy Points") +
