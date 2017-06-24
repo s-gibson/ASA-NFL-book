@@ -10,3 +10,5 @@ Ch. 1: How many points will be scored in a game?
 Ch. 2: How many fantasy points are scored per actual point?
 
 Ch. 3.1: How do fantasy points vary with spread?
+
+Ch. 4: How do players share positional fantasy production?
