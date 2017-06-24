@@ -167,5 +167,11 @@ for (i in c(1:nrow(Fantasy.2016))) {
 }
 rm(i)
 
+## Create columns that store players' names as their full name (First Last) and as their first
+## initial + last name
+Fantasy.2016$First.Last <- paste(Fantasy.2016$First.Name, Fantasy.2016$Last.Name)
+Fantasy.2016$Initial.Last <- paste(substr(Fantasy.2016$First.Last, start = 1, stop = 1),
+                                   ". ", Fantasy.2016$Last.Name, sep = "")
+
 ## Save data environment for future use
 save.image("~/Documents/ASA/ASA NFL book/data/clean_data.RData")
