@@ -1,9 +1,9 @@
-######################################################## 
-##  ASA NFL DFS book                                  ##
-##  Ch. 3.1: How do fantasy points vary with spread?  ##
-##  Stewart Gibson                                    ##
-##  6/10/17                                           ##
-########################################################
+########################################################## 
+##  ASA NFL DFS book                                    ##
+##  Ch. 4: How do share positional fantasy production?  ##
+##  Stewart Gibson                                      ##
+##  6/24/17                                             ##
+##########################################################
 
 ## Load packages
 require(ggplot2)
