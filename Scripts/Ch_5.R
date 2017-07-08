@@ -1,9 +1,9 @@
-###################################################### 
-##  ASA NFL DFS book                                ##
-##  Ch. 5: How do players and positions correlate?  ##
-##  Stewart Gibson                                  ##
-##  6/24/17                                         ##
-######################################################
+######################################## 
+##  ASA NFL DFS book                  ##
+##  Ch. 5: How do players correlate?  ##
+##  Stewart Gibson                    ##
+##  6/24/17                           ##
+########################################
 
 ## Load packages
 require(corrplot)
