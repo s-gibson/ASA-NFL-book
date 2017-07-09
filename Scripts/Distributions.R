@@ -11,8 +11,27 @@ require(ggplot2)
 ## Load data
 load("data/clean_data.RData")
 
-## Set unique players list
-uniq.players <- unique(Fantasy.2016$First.Last)
+## Create dataframe of each players season point totals, only include players who scored above
+## positional cutoff levels.
+season.totals <- data.frame(First.Last = unique(Fantasy.2016$First.Last), pos = NA, 
+                            DK.points.total = NA)
+for  (i in 1:nrow(season.totals)) {
+  season.totals$pos[i] <- as.character(Fantasy.2016$Pos[which(Fantasy.2016$First.Last == 
+                                                   season.totals$First.Last[i])][1])
+  season.totals$DK.points.total[i] <- sum(Fantasy.2016$DK.points[which(
+    Fantasy.2016$First.Last == season.totals$First.Last[i])])
+}
+
+QB.cutoff <- 20
+RB.cutoff <- 45
+WR_TE.cutoff <- 30
+
+## Set unique players list (only considering players who scored above their positional cutoff)
+uniq.players <- unique(season.totals$First.Last[which(
+  (season.totals$pos == 'QB' & season.totals$DK.points.total >= QB.cutoff)|
+    (season.totals$pos == 'RB' & season.totals$DK.points.total >= RB.cutoff)|
+    (season.totals$pos == 'WR' & season.totals$DK.points.total >= WR_TE.cutoff) |
+    (season.totals$pos == 'TE' & season.totals$DK.points.total >= WR_TE.cutoff))])
 
 for (i in 1:length(uniq.players)) {
   dat <- Fantasy.2016[which(Fantasy.2016$First.Last == uniq.players[i]),]
@@ -50,5 +69,33 @@ for (i in 1:length(uniq.players)) {
   } else if (dat$Team[length(dat$Team)] == "tam") {col.set = c("red3","burlywood4")
   } else if (dat$Team[length(dat$Team)] == "ten") {col.set = c("steelblue1","steelblue4")
   } else {col.set = c("orangered4","gold")}
+  
+  # Plot distributions
+  ggplot(data = dat) +
+    geom_density(aes(DK.points), color = col.set[2], fill = col.set[1], size = 1) +
+    xlab("DK Fantasy Points") +
+    scale_x_continuous(limits = c(-10,60)) +
+    scale_y_continuous(limits = c(0, .2)) +
+    ggtitle(paste(dat$First.Last[1], "DK Points Distribution (2016)", sep = " ")) +
+    theme(plot.title = element_text(hjust = 0.5))
+  ggsave(paste('Visualizations/Distributions/DK Points/',dat$First.Last[1],'.png', sep = ''))
+  
+  ggplot(data = dat[which(dat$DK.salary > 0),]) +
+    geom_density(aes(DK.salary), color = col.set[2], fill = col.set[1], size = 1) +
+    xlab("DK Salary") +
+    scale_x_continuous(limits = c(1000, 12000)) +
+    scale_y_continuous(limits = c(0, 0.0015)) +
+    ggtitle(paste(dat$First.Last[1], "DK Salary Distribution (2016)", sep = " ")) +
+    theme(plot.title = element_text(hjust = 0.5))
+  ggsave(paste('Visualizations/Distributions/Salary/',dat$First.Last[1],'.png', sep = ''))
+  
+  ggplot(data = dat[which(dat$DK.salary > 0),]) +
+    geom_density(aes(DK.points/(DK.salary/1000)), color = col.set[2], fill = col.set[1], size = 1) +
+    xlab("DK Points/$1K") +
+    scale_x_continuous(limits = c(-2, 12)) +
+    scale_y_continuous(limits = c(0, .75)) +
+    ggtitle(paste(dat$First.Last[1], "DK Salary Distribution (2016)", sep = " ")) +
+    theme(plot.title = element_text(hjust = 0.5))
+  ggsave(paste('Visualizations/Distributions/DKP Per $1K/',dat$First.Last[1],'.png', sep = ''))
   
 }
