@@ -2,7 +2,7 @@
 ##  ASA NFL DFS book                                        ##
 ##  Player Fantasy point, salary, and FP/$1K distributions  ##
 ##  Stewart Gibson                                          ##
-##  6/24/17                                                 ##
+##  7/8/17                                                  ##
 ##############################################################
 
 ## Load packages

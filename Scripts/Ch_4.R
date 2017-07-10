@@ -72,7 +72,8 @@ for (i in 1:length(uniq.teams)) {
     ylab('Fantasy Points') +
     ggtitle(paste(toupper(uniq.teams[i]), "QB Fantasy Trendline", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5)) +
-    scale_x_continuous(breaks = c(1:17))
+    scale_x_continuous(breaks = c(1:17)) +
+    scale_color_discrete(name = "Player")
   
   ggsave(paste("Visualizations/Ch_4/Restrictive/QB/QB_", uniq.teams[i],".png", sep = "") )
   
@@ -85,8 +86,9 @@ for (i in 1:length(uniq.teams)) {
     ylab('Fantasy Points') +
     ggtitle(paste(toupper(uniq.teams[i]), "RB Fantasy Trendline", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5)) +
-    scale_x_continuous(breaks = c(1:17))
-    
+    scale_x_continuous(breaks = c(1:17)) +
+    scale_color_discrete(name = "Player")
+  
   ggsave(paste("Visualizations/Ch_4/Restrictive/RB/RB_", uniq.teams[i],".png", sep = "") )
   
   # Plot WR/TE trendline
@@ -98,7 +100,8 @@ for (i in 1:length(uniq.teams)) {
     ylab('Fantasy Points') +
     ggtitle(paste(toupper(uniq.teams[i]), "WR/TE Fantasy Trendline", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5)) +
-    scale_x_continuous(breaks = c(1:17))
+    scale_x_continuous(breaks = c(1:17)) +
+    scale_color_discrete(name = "Player")
     
   ggsave(paste("Visualizations/Ch_4/Restrictive/WR_TE/WR_TE_", uniq.teams[i],".png", sep = "") )
   
@@ -121,7 +124,8 @@ for (i in 1:length(uniq.teams)) {
     ylab('Fantasy Points') +
     ggtitle(paste(toupper(uniq.teams[i]), "QB Fantasy Trendline", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5)) +
-    scale_x_continuous(breaks = c(1:17))
+    scale_x_continuous(breaks = c(1:17)) +
+    scale_color_discrete(name = "Player")
   
   ggsave(paste("Visualizations/Ch_4/Non_Restrictive/QB/QB_", uniq.teams[i],".png", sep = "") )
   
@@ -134,7 +138,8 @@ for (i in 1:length(uniq.teams)) {
     ylab('Fantasy Points') +
     ggtitle(paste(toupper(uniq.teams[i]), "RB Fantasy Trendline", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5)) +
-    scale_x_continuous(breaks = c(1:17))
+    scale_x_continuous(breaks = c(1:17)) +
+    scale_color_discrete(name = "Player")
   
   ggsave(paste("Visualizations/Ch_4/Non_Restrictive/RB/RB_", uniq.teams[i],".png", sep = "") )
   
@@ -147,7 +152,8 @@ for (i in 1:length(uniq.teams)) {
     ylab('Fantasy Points') +
     ggtitle(paste(toupper(uniq.teams[i]), "WR/TE Fantasy Trendline", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5)) +
-    scale_x_continuous(breaks = c(1:17))
+    scale_x_continuous(breaks = c(1:17)) +
+    scale_color_discrete(name = "Player")
   
   ggsave(paste("Visualizations/Ch_4/Non_Restrictive/WR_TE/WR_TE_", uniq.teams[i],".png", sep = "") )
   
