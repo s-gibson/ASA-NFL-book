@@ -174,4 +174,4 @@ Fantasy.2016$Initial.Last <- paste(substr(Fantasy.2016$First.Last, start = 1, st
                                    ". ", Fantasy.2016$Last.Name, sep = "")
 
 ## Save data environment for future use
-save.image("~/Documents/ASA/ASA NFL book/data/clean_data.RData")
+save.image("data/clean_data.RData")
