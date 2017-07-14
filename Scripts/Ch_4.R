@@ -204,6 +204,7 @@ Fantasy.2016.proportions <- Fantasy.2016.proportions[which(
     unlist(c(as.character(QB.list), 
              as.character(RB.list), 
              as.character(WR_TE.list)))),]
+uniq.teams <- sort(unique(Fantasy.2016$Team))
 
 for (i in 1:length(uniq.teams)) {
   dat <- Fantasy.2016.proportions[which(Fantasy.2016.proportions$Team == uniq.teams[i]),]
@@ -256,7 +257,7 @@ for (i in 1:length(uniq.teams)) {
     theme(plot.title = element_text(hjust = 0.5))
     
   ggsave(paste("Visualizations/Ch_4/Player Fantasy Proportions/Total Offense/",
-               dat$Team[i],".png", sep = ""))
+               uniq.teams[i],".png", sep = ""))
   
   # RB
   ggplot(data = dat[which(dat$Pos == "RB"),]) +
