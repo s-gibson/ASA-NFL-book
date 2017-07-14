@@ -152,7 +152,7 @@ for (i in c(1:32)) {
   ggplot(data = dat, aes(x = Actual.Points, y = Offensive.Fantasy.Points)) +
     geom_point(aes(group = Pos, color = Pos), size = 0.5) + 
     geom_smooth(aes(group = Pos, color = Pos), method = 'lm', formula = y ~ x) +
-    ggtitle("[TBD] All Teams") +
+    ggtitle(paste("[TBD]", toupper(uniq.teams[i]), sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5)) +
     xlab("Actual Points") +
     ylab("Total Offensive Fantasy Points") +
