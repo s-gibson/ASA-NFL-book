@@ -42,7 +42,7 @@ reg.eq <- paste("Y = ", round(Fantasy.Actual.reg$coefficients[1], 2), " - ",
 ggplot(data = Team.Fantasy.totals.2016, aes(x = Spread, y = Offensive.Fantasy.Points)) +
   geom_point() + 
   geom_smooth(method = 'lm', formula = y ~ x) +
-  ggtitle("[TBD] All Teams") +
+  ggtitle("Team Fantasy Points vs. Spread: All Teams") +
   theme(plot.title = element_text(hjust = 0.5)) +
   xlab("Spread") +
   ylab("Total Offensive Fantasy Points") +
@@ -66,7 +66,7 @@ for (i in c(1:32)) {
   ggplot(data = dat, aes(x = Spread, y = Offensive.Fantasy.Points)) +
     geom_point() + 
     geom_smooth(method = 'lm', formula = y ~ x) +
-    ggtitle(paste("[TBD]", toupper(uniq.teams[i]), sep = " ")) +
+    ggtitle(paste("Team Fantasy Points vs. Spread:", toupper(uniq.teams[i]), sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5)) +
     xlab("Spread") +
     ylab("Total Offensive Fantasy Points") +
@@ -132,7 +132,7 @@ for (i in c(1:nrow(Team.Fantasy.totals.Pos.2016))) {
 ggplot(data = Team.Fantasy.totals.Pos.2016, aes(x = Spread, y = Offensive.Fantasy.Points)) +
   geom_point(aes(group = Pos, color = Pos), size = 0.5) + 
   geom_smooth(aes(group = Pos, color = Pos), method = 'lm', formula = y ~ x) +
-  ggtitle("[TBD] All Teams") +
+  ggtitle("Team Fantasy Points vs. Spread By Position: All Teams") +
   theme(plot.title = element_text(hjust = 0.5)) +
   xlab("Spread") +
   ylab("Total Offensive Fantasy Points") +
@@ -156,7 +156,7 @@ for (i in c(1:32)) {
   ggplot(data = dat, aes(x = Spread, y = Offensive.Fantasy.Points)) +
     geom_point(aes(group = Pos, color = Pos)) + 
     geom_smooth(aes(group = Pos, color = Pos), method = 'lm', formula = y ~ x) +
-    ggtitle(paste("[TBD]", toupper(uniq.teams[i]), sep = " ")) +
+    ggtitle(paste("Team Fantasy Points vs. Spread By Position:", toupper(uniq.teams[i]), sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5)) +
     xlab("Spread") +
     ylab("Total Offensive Fantasy Points") +

@@ -9,8 +9,8 @@
 require(ggplot2)
 
 ## Import data
-OU.2016 <- read.csv("~/Documents/ASA/NFL_book/data/2016_DonBest_VegasData_NFL_Week.csv")
-OU.2012_2015 <- read.csv("~/Documents/ASA/NFL_book/data/2012_2015_Final_DonbestData_NFL.csv")
+OU.2016 <- read.csv("data/2016_DonBest_VegasData_NFL_Week.csv")
+OU.2012_2015 <- read.csv("data/2012_2015_Final_DonbestData_NFL.csv")
 
 ## Keep only regular season games
 OU.2016 <- OU.2016[which(OU.2016$Regular.Season == 1),]
@@ -37,7 +37,7 @@ ggplot(data = viz.dat) +
   geom_point(aes(x = Over.Under, y = Actual.Points), size = 0.1) +
   geom_smooth(aes(x = Over.Under, y = Actual.Points), method = 'lm',
               formula = y ~ poly(x,3)) +
-  ggtitle("3rd Order Polynomial Fit [Title TBD]") +
+  ggtitle("Actual Point Total vs. Over/Under") +
   theme(plot.title = element_text(hjust = 0.5)) +
   xlab("Over/Under") +
   ylab("Actual Points Scored") #+ 
@@ -49,7 +49,7 @@ ggplot(data = viz.dat) +
   geom_point(aes(x = Over.Under, y = Actual.Points), size = 0.1) +
   geom_smooth(aes(x = Over.Under, y = Actual.Points), method = 'lm',
               formula = y ~ poly(x,5)) +
-  ggtitle("5th Order Polynomial Fit [Title TBD]") +
+  ggtitle("Actual Point Total vs. Over/Under") +
   theme(plot.title = element_text(hjust = 0.5)) +
   xlab("Over/Under") +
   ylab("Actual Points Scored") #+ 
@@ -59,7 +59,7 @@ ggplot(data = viz.dat) +
 ggplot(data = viz.dat) +
   geom_point(aes(x = Over.Under, y = Actual.Points), size = 0.1) +
   geom_smooth(aes(x = Over.Under, y = Actual.Points), method = 'loess') +
-  ggtitle("Loess Fit [Title TBD]") +
+  ggtitle("Actual Point Total vs. Over/Under") +
   theme(plot.title = element_text(hjust = 0.5)) +
   xlab("Over/Under") +
   ylab("Actual Points Scored") + 
