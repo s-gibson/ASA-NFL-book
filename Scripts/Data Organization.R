@@ -173,5 +173,34 @@ Fantasy.2016$First.Last <- paste(Fantasy.2016$First.Name, Fantasy.2016$Last.Name
 Fantasy.2016$Initial.Last <- paste(substr(Fantasy.2016$First.Last, start = 1, stop = 1),
                                    ". ", Fantasy.2016$Last.Name, sep = "")
 
+## Import and clean injury data
+Injuries.2016 <- read.csv("data/merged_injuries_2016.csv")
+
+## Convert Team column to character, change names of teams to match team-naming scheme of other
+## datasets.
+Injuries.2016$Team <- as.character(Injuries.2016$Team)
+Injuries.2016$Team[which(Injuries.2016$Team == "clt")] <- "ind"
+Injuries.2016$Team[which(Injuries.2016$Team == "crd")] <- "ari"
+Injuries.2016$Team[which(Injuries.2016$Team == "htx")] <- "hou"
+Injuries.2016$Team[which(Injuries.2016$Team == "jax")] <- "jac"
+Injuries.2016$Team[which(Injuries.2016$Team == "oti")] <- "ten"
+Injuries.2016$Team[which(Injuries.2016$Team == "rai")] <- "oak"
+Injuries.2016$Team[which(Injuries.2016$Team == "ram")] <- "lar"
+Injuries.2016$Team[which(Injuries.2016$Team == "rav")] <- "bal"
+
+## Add a column for the average fantasy points scored by each player who was injured in 2016
+Injuries.2016$Avg.FP <- NA
+for (i in 1:nrow(Injuries.2016)) {
+  Injuries.2016$Avg.FP[i] <- max(0,mean(Fantasy.2016$DK.points[which(
+    Fantasy.2016$First.Last == Injuries.2016$Player[i]
+  )], na.rm = T))
+}
+
+## Establish a threshold of average fantasy points required for a player to be a significant injury.
+## Only keep players whose average fantasy point total is above that threshold.
+Inj.threshold <- 10
+Injuries.2016 <- Injuries.2016[which(Injuries.2016$Avg.FP >= Inj.threshold),]
+
 ## Save data environment for future use
+rm(i)
 save.image("data/clean_data.RData")
