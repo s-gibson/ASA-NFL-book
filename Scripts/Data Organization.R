@@ -202,5 +202,5 @@ Inj.threshold <- 10
 Injuries.2016 <- Injuries.2016[which(Injuries.2016$Avg.FP >= Inj.threshold),]
 
 ## Save data environment for future use
-rm(i)
+rm(i, Inj.threshold)
 save.image("data/clean_data.RData")
