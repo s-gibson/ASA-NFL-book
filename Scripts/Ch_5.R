@@ -120,17 +120,22 @@ for (i in 1:nrow(Weekly.depth)) {
 }
 Weekly.depth$RB2[which(is.na(Weekly.depth$RB2))] <- 0
 
-png('Visualizations/Ch_5/By Depth/All teams.png', 
-    height = 450, width = 550, pointsize = 22-ncol(corr.mat))
-corrplot(cor(as.matrix(Weekly.depth[,3:9])), method = 'number', type = 'lower', 
-         col = colorRampPalette(c("red","gray90","green"))(100),
-         title = "All Teams Player Correlation by Position Depth",
-         mar=c(0,0,1,0))
-dev.off()
+for (i in 1:length(uniq.teams)) {
+  corr.mat <- Weekly.depth[which(Weekly.depth$Team == uniq.teams[i]),]
+  f1 <- paste('Visualizations/Ch_5/By Depth/', 
+              uniq.teams[i], sep="")
+  f2 <- paste(f1, '.png', sep = "")
+  png(f2, height = 450, width = 550, pointsize = 22-ncol(corr.mat))
+  corrplot(cor(as.matrix(corr.mat[,3:9])), method = 'number', type = 'lower', 
+           col = colorRampPalette(c("red","gray90","green"))(100),
+           title = paste(toupper(uniq.teams[i]), "Correlation by Depth", sep = " "),
+           mar=c(0,0,1,0))
+  dev.off()
+}
 
 ## Create above corrplot, but only consider games in which actual point totals are in the upper
 ## 10% of point totals
-png('Visualizations/Ch_5/By Depth/High-Scoring.png', 
+png('Visualizations/Ch_5/High-Scoring Games/High-Scoring Games.png', 
     height = 450, width = 550, pointsize = 22-ncol(corr.mat))
 corrplot(cor(as.matrix(Weekly.depth[which(
   Weekly.depth$Actual.Points >=  quantile(Weekly.depth$Actual.Points, probs = .9)),3:9])), 
