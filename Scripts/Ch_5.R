@@ -56,6 +56,9 @@ for (i in 1:nrow(WR_TE.2016.totals)) {
 }
 WR_TE.list <- WR_TE.2016.totals$First.Last[which(WR_TE.2016.totals$Total.DKP >= WR_TE.cutoff)]
 
+## Create second version of Fantasy.2016 so that below-cut players are kept in a full dataset
+Fantasy.2016.full <- Fantasy.2016
+
 ## Subset Fantasy.2016 to only include players in QB.list, RB.list, WR_TE.list
 Fantasy.2016 <- Fantasy.2016[which(as.character(Fantasy.2016$First.Last) %in% 
                                      c(as.character(QB.list), 
@@ -83,7 +86,7 @@ for (i in 1:length(uniq.teams)) {
     }
   }
   # create correlation plot
-  f1 <- paste('Visualizations/Ch_5/', 
+  f1 <- paste('Visualizations/Ch_5/All Games/', 
               uniq.teams[i], sep="")
   f2 <- paste(f1, '.png', sep = "")
   png(f2, height = 450, width = 550, pointsize = 22-ncol(corr.mat))
@@ -92,6 +95,49 @@ for (i in 1:length(uniq.teams)) {
            title = paste(toupper(uniq.teams[i]),"Player Correlation", sep = " "),
            mar=c(0,0,1,0))
   dev.off()
-  
-  
 }
+
+## Create dataset for each team/week combination.  Fill in QB1, RB1, RB2, WR1, WR2, WR3, TE1
+## to be top, second, third fantasy point scorer at each position for each week.  This will
+## create a correlation matrix slightly different from the one above, allowing for flexibility
+## in which player fills each depth spot on a given week.
+Weekly.depth <- unique(Fantasy.2016.full[c("Week","Team")])
+Weekly.depth <- cbind(Weekly.depth, matrix(NA, ncol = 8, nrow = nrow(Weekly.depth)))
+colnames(Weekly.depth)[3:10] <- c("QB1","RB1","RB2","WR1","WR2","WR3","TE1", "Actual.Points")
+
+for (i in 1:nrow(Weekly.depth)) {
+  dat <- Fantasy.2016.full[which(Fantasy.2016.full$Week == Weekly.depth$Week[i] &
+                                   Fantasy.2016.full$Team == Weekly.depth$Team[i]),]
+  # Fill out matrix
+  Weekly.depth$QB1[i] <- sort(dat$DK.points[which(dat$Pos == "QB")], decreasing = T)[1]
+  Weekly.depth$RB1[i] <- sort(dat$DK.points[which(dat$Pos == "RB")], decreasing = T)[1]
+  Weekly.depth$RB2[i] <- sort(dat$DK.points[which(dat$Pos == "RB")], decreasing = T)[2]
+  Weekly.depth$WR1[i] <- sort(dat$DK.points[which(dat$Pos == "WR")], decreasing = T)[1]
+  Weekly.depth$WR2[i] <- sort(dat$DK.points[which(dat$Pos == "WR")], decreasing = T)[2]
+  Weekly.depth$WR3[i] <- sort(dat$DK.points[which(dat$Pos == "WR")], decreasing = T)[3]
+  Weekly.depth$TE1[i] <- sort(dat$DK.points[which(dat$Pos == "TE")], decreasing = T)[1]
+  Weekly.depth$Actual.Points[i] <- dat$Actual.Points[1]
+}
+Weekly.depth$RB2[which(is.na(Weekly.depth$RB2))] <- 0
+
+png('Visualizations/Ch_5/By Depth/All teams.png', 
+    height = 450, width = 550, pointsize = 22-ncol(corr.mat))
+corrplot(cor(as.matrix(Weekly.depth[,3:9])), method = 'number', type = 'lower', 
+         col = colorRampPalette(c("red","gray90","green"))(100),
+         title = "All Teams Player Correlation by Position Depth",
+         mar=c(0,0,1,0))
+dev.off()
+
+## Create above corrplot, but only consider games in which actual point totals are in the upper
+## 10% of point totals
+png('Visualizations/Ch_5/By Depth/High-Scoring.png', 
+    height = 450, width = 550, pointsize = 22-ncol(corr.mat))
+corrplot(cor(as.matrix(Weekly.depth[which(
+  Weekly.depth$Actual.Points >=  quantile(Weekly.depth$Actual.Points, probs = .9)),3:9])), 
+  method = 'number', type = 'lower', 
+  col = colorRampPalette(c("red","gray90","green"))(100),
+  title = "All Teams Player Correlation by Position Depth ( > 34 Points)",
+  mar=c(0,0,1,0))
+dev.off()
+
+
