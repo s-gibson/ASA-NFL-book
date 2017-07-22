@@ -284,7 +284,7 @@ for (i in 1:length(uniq.teams)) {
                  outlier.alpha = 0, coef = 0, color = col.set[2], fill = col.set[1]) +
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     xlab("") +
-    ylab("% of RB Fantasy Points") +
+    ylab("% of WR/TE Fantasy Points") +
     ggtitle(paste(toupper(dat$Team[i]), "Proportion of Team WR/TE Fantasy Points", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5))
   
