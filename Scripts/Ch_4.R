@@ -62,7 +62,7 @@ for (i in 1:length(uniq.teams)) {
                             RB.2016$First.Last %in% RB.list),]
   dat.WR_TE <- WR_TE.2016[which(WR_TE.2016$Team == uniq.teams[i] & 
                                   WR_TE.2016$First.Last %in% WR_TE.list),]
-  
+
   # Plot QB trendline
   ggplot(data = dat.QB, aes(x = Week, y = DK.points, group = Initial.Last, 
                             color = Initial.Last)) +

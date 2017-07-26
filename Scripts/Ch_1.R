@@ -28,8 +28,12 @@ for (i in c(1:17)) {
 }
 
 ## Create dataset of only Over/Under and actual point totals
-viz.dat <- data.frame(Over.Under = c(OU.2016$Vegas.Over.Under, OU.2012_2015$Vegas.Over.Under),
-                      Actual.Points = c(OU.2016$Actual.Total.Points, OU.2012_2015$Actual.Total.Points))
+OU.2012_2015 <- OU.2012_2015[-which(OU.2012_2015$Vegas.Over.Under == "N/A"),]
+OU.2012_2015 <- OU.2012_2015[-which(OU.2012_2015$Actual.Total.Points == "N/A"),]
+viz.dat <- data.frame(Over.Under = c(OU.2016$Vegas.Over.Under,as.numeric(
+  levels(OU.2012_2015$Vegas.Over.Under)[OU.2012_2015$Vegas.Over.Under])),
+                      Actual.Points = c(OU.2016$Actual.Total.Points, as.numeric(
+                        levels(OU.2012_2015$Actual.Total.Points)[OU.2012_2015$Actual.Total.Points])))
 
 ## Create vizualization: O/U (x) vs. Actual Point Total (y)
 ## 3rd order polynomial fit
@@ -42,7 +46,7 @@ ggplot(data = viz.dat) +
   xlab("Over/Under") +
   ylab("Actual Points Scored") #+ 
   #geom_abline(intercept = seq(-50, 80,10), slope = 1, color = 'red', size = 0.5, alpha = 0.1)
-
+ggsave("Visualizations/Ch_1/3rd.png")
 
 ## 5th order polynomial fit
 ggplot(data = viz.dat) +
@@ -54,8 +58,9 @@ ggplot(data = viz.dat) +
   xlab("Over/Under") +
   ylab("Actual Points Scored") #+ 
   #geom_abline(intercept = seq(-50, 80,10), slope = 1, color = 'red', size = 0.5, alpha = 0.1)
+ggsave("Visualizations/Ch_1/5th.png")
 
-## Loess fit
+## Loess fit w/ unitslope
 ggplot(data = viz.dat) +
   geom_point(aes(x = Over.Under, y = Actual.Points), size = 0.1) +
   geom_smooth(aes(x = Over.Under, y = Actual.Points), method = 'loess') +
@@ -64,7 +69,18 @@ ggplot(data = viz.dat) +
   xlab("Over/Under") +
   ylab("Actual Points Scored") + 
   geom_abline(intercept = seq(-50, 80,10), slope = 1, color = 'red', size = 0.5, alpha = 0.1)
+ggsave("Visualizations/Ch_1/Loess_w_unitslope.png")
 
+## Loess fit w/ unitslope
+ggplot(data = viz.dat) +
+  geom_point(aes(x = Over.Under, y = Actual.Points), size = 0.1) +
+  geom_smooth(aes(x = Over.Under, y = Actual.Points), method = 'loess') +
+  ggtitle("Actual Point Total vs. Over/Under") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  xlab("Over/Under") +
+  ylab("Actual Points Scored") + 
+  #geom_abline(intercept = seq(-50, 80,10), slope = 1, color = 'red', size = 0.5, alpha = 0.1)
+ggsave("Visualizations/Ch_1/Loess.png")
 
 
 

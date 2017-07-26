@@ -145,4 +145,13 @@ corrplot(cor(as.matrix(Weekly.depth[which(
   mar=c(0,0,1,0))
 dev.off()
 
+## Create above corrplot for all games by all teams.
+png('Visualizations/Ch_5/By Depth/ALL Games ALL Teams.png', 
+    height = 450, width = 550, pointsize = 22-ncol(corr.mat))
+corrplot(cor(as.matrix(Weekly.depth[,3:9])), 
+  method = 'number', type = 'lower', 
+  col = colorRampPalette(c("red","gray90","green"))(100),
+  title = "All Teams Player Correlation by Position Depth",
+  mar=c(0,0,1,0))
+dev.off()
 
