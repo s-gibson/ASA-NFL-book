@@ -56,3 +56,11 @@ ggplot(data = Team.Fantasy.totals.2016, aes(x = Actual.Points, y = Offensive.Fan
 
 ggsave("Visualizations/Ch_3.2_injuries/FP_vs_AP_Injury.png")
   
+ggplot(data = Team.Fantasy.totals.2016, aes(x = Offensive.Fantasy.Points,
+                                            color = Injury, fill = Injury)) +
+  geom_density(alpha = 0.5) +
+  xlab("Offensive Fantasy Points") +
+  ggtitle("Offensive Fantasy Points Distribution by Injury") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggsave("Visualizations/Ch_3.2_injuries/FP Distributions_Injury.png")
