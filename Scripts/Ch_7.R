@@ -121,3 +121,45 @@ for (i in 1:length(uniq.teams)) {
   ggsave(paste("Visualizations/Ch_7/Positional Units/",uniq.teams[i],".png", sep = ""))
   
 }
+
+## Plot teams' fantasy point total (total offense and positional units) vs. the average
+## point total allowed by each opponent at the league-aggregate level.
+FP.total.reg <- lm(Fantasy.vs.Oppt$Total.FP[which(Fantasy.vs.Oppt$Pos == "All")] ~ 
+                     Fantasy.vs.Oppt$Oppt.FP.allowed[which(Fantasy.vs.Oppt$Pos == "All")])
+reg.eq <- paste("Y = ", round(FP.total.reg$coefficients[1], 2), " + ", 
+                round(FP.total.reg$coefficients[2], 2), " * X", sep = '')
+
+# Total offense
+ggplot(data = Fantasy.vs.Oppt[which(Fantasy.vs.Oppt$Pos == "All"),], aes (x = Oppt.FP.allowed, 
+                                                  y = Total.FP)) +
+  geom_point() +
+  geom_smooth(method = 'lm', formula = y ~x) +
+  ggtitle("Total Fantasy Points vs. Opponent Average FP/Game") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  xlab("Opponent Average FP/Game") +
+  ylab("Total Offensive Fantasy Points") +
+  geom_text(x = 85, y = max(Fantasy.vs.Oppt$Total.FP), label = reg.eq,
+            color = 'blue', size = 5) +
+  scale_x_continuous(limits = c(min(Fantasy.vs.Oppt$Oppt.FP.allowed[which(
+    Fantasy.vs.Oppt$Pos == "All")]), max(Fantasy.vs.Oppt$Oppt.FP.allowed[which(
+      Fantasy.vs.Oppt$Pos == "All")]) + 3)) +
+  scale_y_continuous(limits = c(min(Fantasy.vs.Oppt$Total.FP[which(
+    Fantasy.vs.Oppt$Pos == "All")] - 5),
+    max(Fantasy.vs.Oppt$Total.FP[which(
+      Fantasy.vs.Oppt$Pos == "All")] + 5)))
+
+ggsave("Visualizations/Ch_7/League-Aggregate/Total Offense.png")
+
+# Positional units
+ggplot(data = Fantasy.vs.Oppt[which(Fantasy.vs.Oppt$Pos != "All"),], aes (x = Oppt.FP.allowed, 
+                                                  y = Total.FP, group = Pos, color = Pos)) +
+  geom_point(size = 0.4, alpha = 0.4) +
+  geom_smooth(method = 'lm', formula = y ~x) +
+  ggtitle("Total Fantasy Points vs. Opponent Average FP/Game") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  xlab("Opponent Average FP/Game") +
+  ylab("Total Positiona Unit Fantasy Points") #+
+
+ggsave("Visualizations/Ch_7/League-Aggregate/Positional Units.png")
+
+
