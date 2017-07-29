@@ -51,7 +51,7 @@ ggplot(data = playcounts) +
   geom_point(aes(x = Point.Total, y = Pass.Plays, color = 'blue'), size = 0.5, alpha = 0.5) +
   geom_smooth(aes(x = Point.Total, y = Pass.Plays), color = 'blue', method = 'lm', formula = y~x) +
   ylab("Play Counts") +
-  xlab("Point Total") +
+  xlab("Team Point Total") +
   ggtitle("Run/Pass Play Counts vs. Point Total") +
   scale_color_manual(labels = c("Pass","Run"), values = c("red" = "red", "blue" = "blue")) +
   theme(plot.title = element_text(hjust = 0.5))
