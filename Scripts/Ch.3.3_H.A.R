@@ -54,7 +54,17 @@ for (i in 1:length(uniq.teams)) {
     theme(plot.title = element_text(hjust = 0.5))
     
   ggsave(paste("Visualizations/Ch_3.3_H.A/",uniq.teams[i],".png",sep = ""))
-  }
-  
-  
-  
+}
+
+ggplot(data = Team.Fantasy.totals.2016,
+       aes(x=Offensive.Fantasy.Points, group=H.A, color=H.A, fill = H.A)) +
+  geom_density(alpha=0.5) +
+  #scale_x_continuous(limits = c(0,220)) +
+  #scale_y_continuous(limits = c(0, 0.055)) +
+  xlab("Offensive Fantasy Points") +
+  scale_fill_discrete(name = "Home/Away") +
+  scale_color_discrete(name = "Home/Away") +
+  ggtitle("All Teams Total Fantasy Points Home/Away Splits") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+ggsave("Visualizations/Ch_3.3_H.A/ALL.png")
