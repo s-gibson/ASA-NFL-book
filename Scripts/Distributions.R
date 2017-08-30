@@ -113,6 +113,6 @@ for (i in 1:nrow(uniq.players)) {
   ggsave(paste('Visualizations/Distributions/By Position/Salary/',
                dat$Pos[1],"/", dat$First.Last[1],'.png', sep = ''))
   ggsave(paste('Visualizations/Distributions/By Team/Salary/',
-               dat$Team[1], dat$First.Last[1],'.png', sep = ''))
+               dat$Team[1],"/", dat$First.Last[1],'.png', sep = ''))
   
 }
